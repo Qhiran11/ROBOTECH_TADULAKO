@@ -43,6 +43,6 @@ class PageController extends Controller
     public function anggota()
     {
         $anggotas = Anggota::where('status', 'Aktif')->orderBy('nama_lengkap', 'asc')->paginate(12);
-        return view('pages.anggota', compact('anggotas'));
+        return view('pages.anggota.index', compact('anggotas'));
     }
 }

@@ -28,7 +28,7 @@
                 <a href="{{ route('struktur') }}" class="text-gray-600 hover:text-blue-600">Struktur Organisasi</a>
                 <a href="#!" class="text-gray-600 hover:text-blue-600">KRI</a>
                 <a href="{{ route('berita.index') }}" class="text-gray-600 hover:text-blue-600">Berita</a>
-                <a href="{{ route('anggota') }}" class="text-gray-600 hover:text-blue-600">Anggota</a>
+                <a href="{{ route('anggota.index') }}" class="text-gray-600 hover:text-blue-600">Anggota</a>
                 <a href="#!" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Kontak</a>
             </div>
              <!-- Tombol Menu Mobile -->
@@ -45,7 +45,7 @@
             <a href="{{ route('struktur') }}" class="block text-gray-600 hover:text-blue-600">Struktur Organisasi</a>
             <a href="#!" class="block text-gray-600 hover:text-blue-600">KRI</a>
             <a href="{{ route('berita.index') }}" class="text-gray-600 hover:text-blue-600">Berita</a>
-            <a href="{{ route('anggota') }}" class="block text-gray-600 hover:text-blue-600">Anggota</a>
+            <a href="{{ route('anggota.index') }}" class="block text-gray-600 hover:text-blue-600">Anggota</a>
             <a href="#!" class="block bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 text-center">Kontak</a>
         </div>
     </header>
