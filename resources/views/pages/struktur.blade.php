@@ -8,10 +8,10 @@
         
         <div class="max-w-2xl mx-auto">
             <ul class="space-y-4">
-                @foreach($pengurus as $jabatan => $nama)
+                @foreach($pengurus as $p)
                 <li class="border border-gray-200 rounded-lg p-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
-                    <span class="font-semibold text-gray-700">{{ $jabatan }}</span>
-                    <span class="text-blue-600 font-medium">{{ $nama }}</span>
+                    <span class="font-semibold text-gray-700">{{ $p->jabatan }}</span>
+                    <span class="text-blue-600 font-medium">{{ $p->nama }}</span>
                 </li>
                 @endforeach
             </ul>
