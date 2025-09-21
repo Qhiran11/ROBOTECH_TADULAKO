@@ -60,13 +60,7 @@
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Robotech Tadulako. All Rights Reserved.</p>
             <p class="text-sm text-gray-400 mt-2">
-                Dikembangkan dengan ❤️ oleh Divisi IRIS
-            </p>
-        </div>
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Robotech Tadulako. All Rights Reserved.</p>
-            <p class="text-sm text-gray-400 mt-2">
-                Dikembangkan dengan ❤️ oleh Divisi IRIS
+                Dikembangkan dengan oleh Divisi IRIS 2025
             </p>
             <div class="mt-4">
                 <a href="{{ route('login') }}" class="text-sm text-gray-400 hover:text-white">Login Admin</a>

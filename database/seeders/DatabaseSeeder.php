@@ -15,7 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Panggil PengurusSeeder
-        $this->call(PengurusSeeder::class);
+        $this->call([
+            PengurusSeeder::class,
+            DivisiSeeder::class, // <-- TAMBAHKAN INI
+        ]);
+        
 
         // Buat satu user admin untuk login
         User::factory()->create([
