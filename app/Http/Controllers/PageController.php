@@ -2,37 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita; // Tambahkan ini
+use App\Models\Pengurus;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    /**
-     * Menampilkan halaman beranda.
-     */
+    // ... (metode home() dan struktur() tetap sama)
     public function home()
     {
         return view('pages.home');
     }
 
-    /**
-     * Menampilkan halaman struktur organisasi.
-     */
     public function struktur()
     {
-        // Data struktur kepengurusan ini nantinya akan diambil dari database.
-        // Untuk saat ini, kita definisikan langsung di sini sebagai contoh.
-        $pengurus = [
-            'KETUA UMUM' => 'Nama Ketua Umum',
-            'WAKIL KETUA UMUM' => 'Nama Wakil Ketua Umum',
-            'SEKRETARIS UMUM' => 'Nama Sekretaris Umum',
-            'BENDAHARA UMUM' => 'Nama Bendahara Umum',
-            'KOORDINATOR DIVISI INOVASI DAN RISET (IRIS)' => 'Nama Koordinator IRIS',
-            'KOORDINATOR DIVISI HUMAS DAN ADVOKASI (HUMADVO)' => 'Nama Koordinator HUMADVO',
-            'KOORDINATOR DIVISI KADERISASI' => 'Nama Koordinator Kaderisasi',
-            'KOORDINATOR DIVISI EKONOMI KREATIF (EKRAF)' => 'Nama Koordinator EKRAF',
-            'KOORDINATOR DIVISI KESEKTARIATAN' => 'Nama Koordinator Kesekretariatan',
-        ];
-
+        $pengurus = Pengurus::orderBy('urutan', 'asc')->get();
         return view('pages.struktur', ['pengurus' => $pengurus]);
+    }
+
+    // --- TAMBAHKAN DUA METODE DI BAWAH INI ---
+    /**
+     * Menampilkan halaman daftar berita untuk publik.
+     */
+    public function berita()
+    {
+        $berita = Berita::latest()->paginate(9); // 9 berita per halaman
+        return view('pages.berita.index', compact('berita'));
+    }
+
+    /**
+     * Menampilkan halaman detail sebuah berita.
+     */
+    public function detailBerita($slug)
+    {
+        $berita = Berita::where('slug', $slug)->firstOrFail();
+        return view('pages.berita.show', compact('berita'));
     }
 }

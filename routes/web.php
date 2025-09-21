@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PengurusController;
+use App\Http\Controllers\Admin\BeritaController; // Tambahkan ini
 
 /*
 |--------------------------------------------------------------------------
@@ -15,19 +16,23 @@ use App\Http\Controllers\Admin\PengurusController;
 // Rute Publik
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/struktur-organisasi', [PageController::class, 'struktur'])->name('struktur');
+Route::get('/berita', [PageController::class, 'berita'])->name('berita.index'); // Halaman daftar berita
+Route::get('/berita/{slug}', [PageController::class, 'detailBerita'])->name('berita.show'); // Halaman detail berita
 
 // Rute Autentikasi Admin
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-
-// Grup Rute Admin (dilindungi oleh middleware auth)
-Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// Grup Rute Admin
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    // Rute untuk mengelola Struktur Organisasi (Pengurus)
-    Route::get('/pengurus', [PengurusController::class, 'index'])->name('admin.pengurus.index');
-    Route::get('/pengurus/{pengurus}/edit', [PengurusController::class, 'edit'])->name('admin.pengurus.edit');
-    Route::put('/pengurus/{pengurus}', [PengurusController::class, 'update'])->name('admin.pengurus.update');
+    // Rute Pengurus
+    Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus.index');
+    Route::get('/pengurus/{pengurus}/edit', [PengurusController::class, 'edit'])->name('pengurus.edit');
+    Route::put('/pengurus/{pengurus}', [PengurusController::class, 'update'])->name('pengurus.update');
+
+    // Rute Berita (CRUD Lengkap)
+    Route::resource('berita', BeritaController::class);
 });
