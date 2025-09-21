@@ -21,7 +21,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Dashboard</a>
                 <a href="{{ route('admin.pengurus.index') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Struktur Organisasi</a>
                 <a href="{{ route('admin.berita.index') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Berita</a>
-                <a href="#!" class="block px-4 py-2 rounded hover:bg-gray-700">Anggota</a>
+                <a href="{{ route('admin.anggota.index') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Manajemen Anggota</a>
             </nav>
         </div>
 
