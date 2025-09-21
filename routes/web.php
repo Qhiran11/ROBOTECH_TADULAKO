@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PengurusController;
 use App\Http\Controllers\Admin\BeritaController; // Tambahkan ini
 use App\Http\Controllers\Admin\AnggotaController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,8 @@ Route::get('/struktur-organisasi', [PageController::class, 'struktur'])->name('s
 Route::get('/berita', [PageController::class, 'berita'])->name('berita.index'); // Halaman daftar berita
 Route::get('/berita/{slug}', [PageController::class, 'detailBerita'])->name('berita.show'); // Halaman detail berita
 Route::get('/anggota', [PageController::class, 'anggota'])->name('anggota.index'); // Tambahkan ini
+Route::get('/tentang-kami', [PageController::class, 'tentangKami'])->name('tentang.kami'); // <-- TAMBAHKAN INI
+Route::get('/kri', [PageController::class, 'kri'])->name('kri.index'); // <-- TAMBAHKAN INI
 
 // Rute Autentikasi Admin
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

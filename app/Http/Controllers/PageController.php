@@ -45,4 +45,14 @@ class PageController extends Controller
         $anggotas = Anggota::where('status', 'Aktif')->orderBy('nama_lengkap', 'asc')->paginate(12);
         return view('pages.anggota.index', compact('anggotas'));
     }
+
+    public function tentangKami()
+    {
+        return view('pages.tentang_kami');
+    }
+
+    public function kri()
+    {
+        return view('pages.kri.index');
+    }
 }
