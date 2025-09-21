@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PengurusController;
 use App\Http\Controllers\Admin\BeritaController; // Tambahkan ini
+use App\Http\Controllers\Admin\AnggotaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/struktur-organisasi', [PageController::class, 'struktur'])->name('struktur');
 Route::get('/berita', [PageController::class, 'berita'])->name('berita.index'); // Halaman daftar berita
 Route::get('/berita/{slug}', [PageController::class, 'detailBerita'])->name('berita.show'); // Halaman detail berita
+Route::get('/anggota', [PageController::class, 'anggota'])->name('anggota.index'); // Tambahkan ini
 
 // Rute Autentikasi Admin
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -35,4 +37,6 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     // Rute Berita (CRUD Lengkap)
     Route::resource('berita', BeritaController::class);
+
+    Route::resource('anggota', AnggotaController::class); // Tambahkan ini
 });

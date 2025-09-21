@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita; // Tambahkan ini
+use App\Models\Anggota; // Tambahkan ini
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
 
@@ -37,5 +38,11 @@ class PageController extends Controller
     {
         $berita = Berita::where('slug', $slug)->firstOrFail();
         return view('pages.berita.show', compact('berita'));
+    }
+
+    public function anggota()
+    {
+        $anggotas = Anggota::where('status', 'Aktif')->orderBy('nama_lengkap', 'asc')->paginate(12);
+        return view('pages.anggota', compact('anggotas'));
     }
 }
