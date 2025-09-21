@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\PengurusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,8 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
-    // Nanti rute untuk CRUD pengurus akan ditambahkan di sini
+    // Rute untuk mengelola Struktur Organisasi (Pengurus)
+    Route::get('/pengurus', [PengurusController::class, 'index'])->name('admin.pengurus.index');
+    Route::get('/pengurus/{pengurus}/edit', [PengurusController::class, 'edit'])->name('admin.pengurus.edit');
+    Route::put('/pengurus/{pengurus}', [PengurusController::class, 'update'])->name('admin.pengurus.update');
 });

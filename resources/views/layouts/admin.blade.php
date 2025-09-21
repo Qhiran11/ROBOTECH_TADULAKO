@@ -19,7 +19,7 @@
             <div class="p-4 text-xl font-bold">Admin Panel</div>
             <nav class="flex-1 px-2 py-4 space-y-2">
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Dashboard</a>
-                <a href="#!" class="block px-4 py-2 rounded hover:bg-gray-700">Struktur Organisasi</a>
+                <a href="{{ route('admin.pengurus.index') }}" class="block px-4 py-2 rounded hover:bg-gray-700">Struktur Organisasi</a>
                 <a href="#!" class="block px-4 py-2 rounded hover:bg-gray-700">Berita</a>
                 <a href="#!" class="block px-4 py-2 rounded hover:bg-gray-700">Anggota</a>
             </nav>
