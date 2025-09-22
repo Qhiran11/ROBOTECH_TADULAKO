@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\KriController; // Tambahkan ini
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\PengurusController;
 use App\Http\Controllers\Admin\BeritaController; // Tambahkan ini
 use App\Http\Controllers\Admin\AnggotaController;
+use App\Http\Controllers\Admin\PartisipasiKriController; // Tambahkan ini
 
 
 /*
@@ -29,6 +31,10 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('l
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+// Rute Publik KRI
+Route::get('/kri', [KriController::class, 'index'])->name('kri.index');
+Route::get('/kri/{slug}', [KriController::class, 'show'])->name('kri.show');
+
 // Grup Rute Admin
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -42,4 +48,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('berita', BeritaController::class);
 
     Route::resource('anggota', AnggotaController::class); // Tambahkan ini
+
+
+    // Rute Admin KRI
+    Route::get('kri', [PartisipasiKriController::class, 'index'])->name('kri.index');
+    Route::resource('kri/{divisi_id}/partisipasi', PartisipasiKriController::class)->except(['index']);
 });
