@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PartisipasiKriController extends Controller
 {
-    // Menampilkan daftar divisi untuk dikelola
+    // ... (metode index, create, store tetap sama)
     public function index()
     {
         $divisis = Divisi::with('partisipasi')->get();
@@ -68,11 +68,55 @@ class PartisipasiKriController extends Controller
         $divisi = Divisi::findOrFail($divisi_id);
         return view('admin.kri.edit', compact('divisi', 'partisipasi'));
     }
-
+    
+    // --- LENGKAPI METODE DI BAWAH INI ---
     public function update(Request $request, $divisi_id, PartisipasiKri $partisipasi)
     {
-        // Logika update (mirip dengan store)
-        // ... (Ini bisa ditambahkan nanti jika diperlukan)
+        $data = $request->validate([
+            'nama_tim' => 'required|string|max:255',
+            'tema_lomba' => 'required|string',
+            'pembimbing' => 'required|string',
+            'lokasi_pertandingan' => 'required|string',
+            'foto_robot' => 'nullable|image|max:2048',
+            'file_rulebook' => 'nullable|file|mimes:pdf|max:2048',
+            'tim_inti.*' => 'nullable|string',
+            'tim_support.*' => 'nullable|string',
+        ]);
+
+        // Update data utama
+        $partisipasi->update([
+            'nama_tim' => $data['nama_tim'],
+            'tema_lomba' => $data['tema_lomba'],
+            'pembimbing' => $data['pembimbing'],
+            'lokasi_pertandingan' => $data['lokasi_pertandingan'],
+        ]);
+
+        // Update foto jika ada yang baru
+        if ($request->hasFile('foto_robot')) {
+            if ($partisipasi->foto_robot) Storage::delete($partisipasi->foto_robot);
+            $partisipasi->foto_robot = $request->file('foto_robot')->store('public/kri/foto');
+        }
+
+        // Update rulebook jika ada yang baru
+        if ($request->hasFile('file_rulebook')) {
+            if ($partisipasi->file_rulebook) Storage::delete($partisipasi->file_rulebook);
+            $partisipasi->file_rulebook = $request->file('file_rulebook')->store('public/kri/rulebook');
+        }
+        $partisipasi->save();
+
+        // Update anggota tim (hapus semua lalu buat ulang)
+        $partisipasi->tim()->delete();
+        if (!empty($data['tim_inti'])) {
+            foreach (array_filter($data['tim_inti']) as $nama) {
+                $partisipasi->tim()->create(['nama_mahasiswa' => $nama, 'jenis_tim' => 'Inti']);
+            }
+        }
+        if (!empty($data['tim_support'])) {
+            foreach (array_filter($data['tim_support']) as $nama) {
+                $partisipasi->tim()->create(['nama_mahasiswa' => $nama, 'jenis_tim' => 'Support']);
+            }
+        }
+        
         return redirect()->route('admin.kri.index')->with('success', 'Data partisipasi berhasil diperbarui.');
     }
 

@@ -41,7 +41,7 @@
                                 <td class="py-2 px-3">{{ $partisipasi->tahun }}</td>
                                 <td class="py-2 px-3">{{ $partisipasi->nama_tim }}</td>
                                 <td class="py-2 px-3 flex space-x-2">
-                                    {{-- <a href="{{ route('admin.partisipasi.edit', [$divisi->id, $partisipasi->id]) }}" class="text-yellow-500 hover:underline">Edit</a> --}}
+                                    <a href="{{ route('admin.partisipasi.edit', [$divisi->id, $partisipasi->id]) }}" class="text-yellow-500 hover:underline">Edit</a>
                                     <form action="{{ route('admin.partisipasi.destroy', [$divisi->id, $partisipasi->id]) }}" method="POST" onsubmit="return confirm('Yakin ingin hapus data tahun {{ $partisipasi->tahun }}?');">
                                         @csrf
                                         @method('DELETE')
